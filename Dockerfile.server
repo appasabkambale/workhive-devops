@@ -1,0 +1,15 @@
+# Dockerfile.server
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Install dependencies
+COPY server/package*.json ./
+RUN npm install
+
+# Copy app source code
+COPY server/ .
+
+# Set environment variables via Docker Compose, so no .env needed here directly
+EXPOSE 5000
+CMD ["npm", "start"]

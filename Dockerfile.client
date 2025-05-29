@@ -1,0 +1,21 @@
+# Dockerfile.client
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy and install dependencies
+COPY client/package*.json ./
+RUN npm install
+
+# Copy the rest of the files
+COPY client/ .
+
+# Build the Vite app
+RUN npm run build
+
+# Use serve to serve the build
+RUN npm install -g serve
+
+EXPOSE 3000
+CMD ["serve", "-s", "dist"]
